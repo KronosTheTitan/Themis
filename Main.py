@@ -1,5 +1,6 @@
 # Main.py
 import os
+import sys
 
 import discord
 from dotenv import load_dotenv
@@ -17,4 +18,11 @@ async def on_ready():
     Debug.Log('We have logged in as {0.user}'.format())
 
 
-client.run(TOKEN)
+try:
+    client.run(TOKEN)
+except discord.ClientException as e:
+    Debug.LogError('A critical error occurred')
+    Debug.LogError(str(e))
+    sys.exit(1)
+
+Debug.Log('Client Started')

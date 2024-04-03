@@ -5,8 +5,10 @@
 def Log(message):
     print(message)
 
+
 def LogWarning(message):
-    print(message)
+    print("\033[93m {}\033[00m" .format(message))
+
 
 def LogError(message):
-    print(message)
+    print("\033[91m {}\033[00m".format(message))
