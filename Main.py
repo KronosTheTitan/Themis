@@ -1,28 +1,30 @@
 # Main.py
 import os
-import sys
+import random
 
 import discord
+from discord.ext import commands
 from dotenv import load_dotenv
-
-import Debug
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
-client = discord.Client(intents=discord.Intents.all())
+bot = commands.Bot(intents=discord.Intents.all(), command_prefix='!')
 
 
-@client.event
-async def on_ready():
-    Debug.Log('We have logged in as {0.user}'.format())
+@bot.command(name='99')
+async def nine_nine(ctx):
+    brooklyn_99_quotes = [
+        'I\'m the human form of the 💯 emoji.',
+        'Bing pot!',
+        (
+            'Cool. Cool cool cool cool cool cool cool, '
+            'no doubt no doubt no doubt no doubt.'
+        ),
+    ]
+
+    response = random.choice(brooklyn_99_quotes)
+    await ctx.send(response)
 
 
-try:
-    client.run(TOKEN)
-except discord.ClientException as e:
-    Debug.LogError('A critical error occurred')
-    Debug.LogError(str(e))
-    sys.exit(1)
-
-Debug.Log('Client Started')
+bot.run(TOKEN)
